@@ -1,5 +1,5 @@
-import { Button } from 'bootstrap';
 import React, { Component } from 'react';
+// import {TableEditablePage} from './PlaylistsEdit';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -28,8 +28,8 @@ export class Home extends Component {
         <h1>Hello!</h1>
         <p>Welcome to High Volume Music</p>
 
-        <input class="btn btn-primary" type="button" value="Start Parser" onClick={this._onPressStartButton}></input>
-
+        <input className="btn btn-primary" type="button" value="Start Parser" onClick={this._onPressStartButton}></input>
+        {/* <TableEditablePage/> */}
       </div>
     );
   }
