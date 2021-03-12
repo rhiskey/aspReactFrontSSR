@@ -12,3 +12,19 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+.submit-form {
+  max-width: 300px;
+  margin: auto;
+}
+
+.edit-form {
+  max-width: 300px;
+  margin: auto;
+}

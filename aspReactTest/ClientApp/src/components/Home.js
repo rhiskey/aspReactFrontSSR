@@ -22,7 +22,7 @@ export class Home extends Component {
        .then( data => this.setState({ loading: false }));
   }
   render() {
-    const isLoading = this.state.loading;
+    // const isLoading = this.state.loading;
     return (
       <div>
         <h1>Hello!</h1>

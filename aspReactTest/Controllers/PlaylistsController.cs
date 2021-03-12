@@ -42,11 +42,26 @@ namespace aspReactTest.Controllers
             return playlist;
         }
 
+        // GET: api/Playlists?playlistName=name
+        [HttpGet("{id}/{playlistName}")]
+        public async Task<ActionResult<Playlist>> GetPlaylist(int id, string name)
+        {
+            var playlist = _context.Playlists.FirstOrDefault(a => a.PlaylistName == name && a.Id == id);
+
+            if (playlist == null)
+            {
+                return NotFound();
+            }
+
+            return playlist;
+        }
+
         // PUT: api/Playlists/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlaylist(int id, Playlist playlist)
+        public async Task<ActionResult<Playlist>> PutPlaylist(int id, Playlist playlist)
+        //public async Task<IActionResult> PutPlaylist(int id, Playlist playlist)
         {
             if (id != playlist.Id)
             {
@@ -71,7 +86,10 @@ namespace aspReactTest.Controllers
                 }
             }
 
-            return NoContent();
+            var res = await _context.Playlists.FindAsync(id);
+            return res;
+
+            //return NotFound();
         }
 
         // POST: api/Playlists
