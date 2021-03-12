@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PlaylistDataService from "../../services/PlaylistsDataService";
 import { Link } from "react-router-dom";
+// import Pagination from "@material-ui/lab/Pagination"; //TODO
 
 const PlaylistsList = () => {
     const [playlists, setPlaylists] = useState([]);
@@ -102,7 +103,7 @@ const PlaylistsList = () => {
                 </ul>
 
                 <button
-                    className="m-3 btn btn-sm btn-danger"
+                    className="m-2 btn btn-danger"
                     onClick={removeAllPlaylists}
                 >
                     Remove All
@@ -134,7 +135,7 @@ const PlaylistsList = () => {
 
                         <Link
                             to={"/playlists/" + currentPlaylist.id}
-                            className="badge badge-warning"
+                            className="btn btn btn-warning"
                         >
                             Edit
             </Link>

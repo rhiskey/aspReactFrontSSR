@@ -1,0 +1,21 @@
+.item-delete {
+    grid-area: delete;
+    justify-self: stretch;
+  }
+  .item-update {
+    grid-area: update;
+    justify-self: stretch;
+    /* justify-items: end; */
+    justify-items: stretch;
+  }
+
+.grid_container {
+    display: inline-grid;
+    grid-template-columns: 150px 150px;
+    grid-template-rows: auto;
+    column-gap: 70px;
+    align-items: stretch;
+    grid-template-areas: 
+      "delete update";
+  }
+

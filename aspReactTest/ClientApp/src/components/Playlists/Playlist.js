@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PlaylistDataService from "../../services/PlaylistsDataService";
+import "./playlist.css";
 
 const Playlist = props => {
     const initialPlaylistState = {
@@ -111,43 +112,48 @@ const Playlist = props => {
                                 value={currentPlaylist.mood}
                                 onChange={handleInputChange}
                             />
-                        </div>  
+                        </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>
                                 <strong>Status:</strong>
                             </label>
                             {currentPlaylist.published ? "Published" : "Pending"}
-                        </div>
+                        </div> */}
                     </form>
-
+                    {/* 
                     {currentPlaylist.published ? (
                         <button
-                            className="badge badge-primary mr-2"
+                            className="btn btn-primary"
                             onClick={() => updatePublished(false)}
                         >
                             UnPublish
                         </button>
                     ) : (
                         <button
-                            className="badge badge-primary mr-2"
+                            className="btn btn-primary"
                             onClick={() => updatePublished(true)}
                         >
                             Publish
                         </button>
-                    )}
+                    )} */}
 
-                    <button className="badge badge-danger mr-2" onClick={deletePlaylist}>
-                        Delete
-          </button>
-
-                    <button
-                        type="submit"
-                        className="badge badge-success"
-                        onClick={updatePlaylist}
-                    >
-                        Update
-          </button>
+                    <div className="grid_container">
+                        <div className="item-delete">
+                            <button className="btn btn-danger" onClick={deletePlaylist}>
+                                Delete
+                        </button>
+                        </div>
+                        <div className="item-update">
+                            <button
+                                type="submit"
+                                className="btn btn-success"
+                                onClick={updatePlaylist}
+                            >
+                                Update
+                        </button>
+                        </div>
+                    </div>
                     <p>{message}</p>
                 </div>
             ) : (
