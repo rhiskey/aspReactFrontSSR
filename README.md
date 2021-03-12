@@ -1,5 +1,5 @@
 # aspReactFrontSSR
-A front End part of vkaudioposter: Web-API, ReactJS, ASP.NET Core, Entity Framework Core
+A front End part of vkaudioposter: Web-API, ReactJS, ASP.NET Core, MVC, Entity Framework Core
 
 ![Langs](https://img.shields.io/github/languages/count/rhiskey/aspReactFrontSSR)
 
