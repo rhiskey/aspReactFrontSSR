@@ -27,6 +27,11 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GitHub\vkaudioposter_Console\vkaudioposter-ef\vkaudioposter-ef\vkaudioposter-ef.csproj" />
+    <ProjectReference Include="..\..\..\GitHub\vkaudioposter_Console\vkaudioposter_Console.csproj" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
