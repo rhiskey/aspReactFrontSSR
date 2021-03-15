@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import { connect } from "react-redux";
-import { login } from "../actions/auth";
+import AuthService from "../services/auth.service";
 
-const required = (value) => {
+const required = value => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -18,7 +15,7 @@ const required = (value) => {
   }
 };
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -29,18 +26,19 @@ class Login extends Component {
       username: "",
       password: "",
       loading: false,
+      message: ""
     };
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value,
+      username: e.target.value
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value,
+      password: e.target.value
     });
   }
 
@@ -48,38 +46,40 @@ class Login extends Component {
     e.preventDefault();
 
     this.setState({
-      loading: true,
+      message: "",
+      loading: true
     });
 
     this.form.validateAll();
 
-    const { dispatch, history } = this.props;
-
     if (this.checkBtn.context._errors.length === 0) {
-      dispatch(login(this.state.username, this.state.password))
-        .then(() => {
-          history.push("/profile");
+      AuthService.login(this.state.username, this.state.password).then(
+        () => {
+          this.props.history.push("/profile");
           window.location.reload();
-        })
-        .catch(() => {
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
           this.setState({
-            loading: false
+            loading: false,
+            message: resMessage
           });
-        });
+        }
+      );
     } else {
       this.setState({
-        loading: false,
+        loading: false
       });
     }
   }
 
   render() {
-    const { isLoggedIn, message } = this.props;
-
-    if (isLoggedIn) {
-      return <Redirect to="/profile" />;
-    }
-
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -91,7 +91,7 @@ class Login extends Component {
 
           <Form
             onSubmit={this.handleLogin}
-            ref={(c) => {
+            ref={c => {
               this.form = c;
             }}
           >
@@ -131,16 +131,16 @@ class Login extends Component {
               </button>
             </div>
 
-            {message && (
+            {this.state.message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">
-                  {message}
+                  {this.state.message}
                 </div>
               </div>
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={(c) => {
+              ref={c => {
                 this.checkBtn = c;
               }}
             />
@@ -150,14 +150,3 @@ class Login extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  const { isLoggedIn } = state.auth;
-  const { message } = state.message;
-  return {
-    isLoggedIn,
-    message
-  };
-}
-
-export default connect(mapStateToProps)(Login);

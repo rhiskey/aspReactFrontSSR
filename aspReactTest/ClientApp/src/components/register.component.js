@@ -4,10 +4,9 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import { connect } from "react-redux";
-import { register } from "../actions/auth";
+import AuthService from "../services/auth.service";
 
-const required = (value) => {
+const required = value => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -17,7 +16,7 @@ const required = (value) => {
   }
 };
 
-const email = (value) => {
+const email = value => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -27,7 +26,7 @@ const email = (value) => {
   }
 };
 
-const vusername = (value) => {
+const vusername = value => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -37,7 +36,7 @@ const vusername = (value) => {
   }
 };
 
-const vpassword = (value) => {
+const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -47,7 +46,7 @@ const vpassword = (value) => {
   }
 };
 
-class Register extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -60,24 +59,25 @@ class Register extends Component {
       email: "",
       password: "",
       successful: false,
+      message: ""
     };
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value,
+      username: e.target.value
     });
   }
 
   onChangeEmail(e) {
     this.setState({
-      email: e.target.value,
+      email: e.target.value
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value,
+      password: e.target.value
     });
   }
 
@@ -85,32 +85,42 @@ class Register extends Component {
     e.preventDefault();
 
     this.setState({
-      successful: false,
+      message: "",
+      successful: false
     });
 
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      this.props
-        .dispatch(
-          register(this.state.username, this.state.email, this.state.password)
-        )
-        .then(() => {
+      AuthService.register(
+        this.state.username,
+        this.state.email,
+        this.state.password
+      ).then(
+        response => {
           this.setState({
-            successful: true,
+            message: response.data.message,
+            successful: true
           });
-        })
-        .catch(() => {
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
           this.setState({
             successful: false,
+            message: resMessage
           });
-        });
+        }
+      );
     }
   }
 
   render() {
-    const { message } = this.props;
-
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -122,7 +132,7 @@ class Register extends Component {
 
           <Form
             onSubmit={this.handleRegister}
-            ref={(c) => {
+            ref={c => {
               this.form = c;
             }}
           >
@@ -170,16 +180,23 @@ class Register extends Component {
               </div>
             )}
 
-            {message && (
+            {this.state.message && (
               <div className="form-group">
-                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                  {message}
+                <div
+                  className={
+                    this.state.successful
+                      ? "alert alert-success"
+                      : "alert alert-danger"
+                  }
+                  role="alert"
+                >
+                  {this.state.message}
                 </div>
               </div>
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={(c) => {
+              ref={c => {
                 this.checkBtn = c;
               }}
             />
@@ -189,12 +206,3 @@ class Register extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  const { message } = state.message;
-  return {
-    message,
-  };
-}
-
-export default connect(mapStateToProps)(Register);

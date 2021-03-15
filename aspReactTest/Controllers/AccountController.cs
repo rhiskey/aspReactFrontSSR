@@ -18,6 +18,22 @@ namespace aspReactTest.Controllers
             new Person { Login="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
+
+        [HttpPost("api/auth/signup")]
+        public IActionResult Register(string username, string password, string email)
+        {
+            //save user in db
+
+
+            var response = new
+            {
+                message = "successfull",
+            };
+            return Json(response);
+        }
+
+
+        [HttpPost("api/auth/signin")]
         [HttpPost("/token")]
         public IActionResult Token(string username, string password)
         {
@@ -65,6 +81,33 @@ namespace aspReactTest.Controllers
 
             // if user not found
             return null;
+        }
+
+
+        [HttpGet("/api/test/all")]
+        [HttpGet("/api/test/user")]
+        [HttpGet("/api/test/mod")]
+        [HttpGet("/api/test/admin")]
+        public IActionResult All()
+        {
+            ///IN:
+            //headers =     const user = JSON.parse(localStorage.getItem('user'));
+
+            //if (user && user.accessToken)
+            //{
+            //    return { Authorization: 'Bearer ' + user.accessToken };
+            //}
+            //else
+            //{
+            //    return { };
+            //}
+
+
+            ////var response = new
+            //{
+            //};
+            //IEnumerable<string> headerValues = request.Headers.
+            return Json("All Content");
         }
     }
 }
