@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route} from 'react-router';
 // import { Router, Switch, Route, Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import Playlist from "./components/Playlists/Playlist";
 import PlaylistsList from "./components/Playlists/PlaylistsList";
 
 import './custom.css'
-import AuthService from "./services/auth.service";
+// import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";

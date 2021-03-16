@@ -9,8 +9,8 @@ namespace aspReactTest
 {
     public class AuthOptions
     {
-        public const string ISSUER = "MyAuthServer"; // token issuer
-        public const string AUDIENCE = "MyAuthClient"; // token client
+        public const string ISSUER = "localhost"; // token issuer
+        public const string AUDIENCE = "localhost"; // token client
         const string KEY = "mysupersecret_secretkey!123";   // cipher key
         public const int LIFETIME = 1; // - 1 minute
         public static SymmetricSecurityKey GetSymmetricSecurityKey()

@@ -33,24 +33,24 @@ const Playlist = props => {
         setCurrentPlaylist({ ...currentPlaylist, [name]: value });
     };
 
-    const updatePublished = status => {
-        var data = {
-            id: currentPlaylist.id,
-            playlistId: currentPlaylist.playlistId,
-            playlistName: currentPlaylist.playlistName,
-            mood: currentPlaylist.mood,
-            // published: status
-        };
+    // const updatePublished = status => {
+    //     var data = {
+    //         id: currentPlaylist.id,
+    //         playlistId: currentPlaylist.playlistId,
+    //         playlistName: currentPlaylist.playlistName,
+    //         mood: currentPlaylist.mood,
+    //         // published: status
+    //     };
 
-        PlaylistDataService.update(currentPlaylist.id, data)
-            .then(response => {
-                setCurrentPlaylist({ ...currentPlaylist, published: status });
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
+    //     PlaylistDataService.update(currentPlaylist.id, data)
+    //         .then(response => {
+    //             setCurrentPlaylist({ ...currentPlaylist, published: status });
+    //             console.log(response.data);
+    //         })
+    //         .catch(e => {
+    //             console.log(e);
+    //         });
+    // };
 
     const updatePlaylist = () => {
         PlaylistDataService.update(currentPlaylist.id, currentPlaylist)

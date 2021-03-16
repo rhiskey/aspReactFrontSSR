@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace aspReactTest.Controllers
 {
+    //[ApiController]
     public class AccountController : Controller
     {
         // test data insted DB
