@@ -1,5 +1,5 @@
 import React, { Component, Fragment} from 'react';
-import { MDBDataTable, MDBBtn, MDBInput } from "mdbreact";
+import { MDBDataTable /*, MDBBtn, MDBInput */} from "mdbreact";
 
 export class TableEditablePage extends Component {
     state = {

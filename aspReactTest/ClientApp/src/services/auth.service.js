@@ -8,9 +8,15 @@ class AuthService {
       .post(API_URL + "signin", {
         username,
         password
-        // username: username,
-        // password: password
-      })
+        //  username: username,
+        //  password: password
+      }
+      ,{
+        headers: {
+        'Content-Type': 'application/json'
+        }
+      }
+      )
       .then(response => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -29,6 +35,10 @@ class AuthService {
       username,
       email,
       password
+    },{
+      headers: {
+      'Content-Type': 'application/json'
+      }
     });
   }
 
