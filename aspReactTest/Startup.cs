@@ -10,10 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace aspReactTest
 {
     public class Startup
     {
+        public static string db_server, db_user, db_password, db_name, connStr;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,15 +28,19 @@ namespace aspReactTest
         public void ConfigureServices(IServiceCollection services)
         {
             DotNetEnv.Env.TraversePath().Load();
-            string db_server = DotNetEnv.Env.GetString("MYSQL_SERVER");
-            string db_user = DotNetEnv.Env.GetString("MYSQL_USER");
-            string db_password = DotNetEnv.Env.GetString("MYSQL_PASSWORD");
-            string db_name = DotNetEnv.Env.GetString("MYSQL_DATABASE_NAME");
+            db_server = DotNetEnv.Env.GetString("MYSQL_SERVER");
+            db_user = DotNetEnv.Env.GetString("MYSQL_USER");
+            db_password = DotNetEnv.Env.GetString("MYSQL_PASSWORD");
+            db_name = DotNetEnv.Env.GetString("MYSQL_DATABASE_NAME");
 
-            string connStr = "server=" + db_server + ";user=" + db_user + ";database=" + db_name + ";port=3306;password=" + db_password + "";
+            connStr = "server=" + db_server + ";user=" + db_user + ";database=" + db_name + ";port=3306;password=" + db_password + "";
 
             services.AddDbContext<PlaylistContext>(opt => opt.UseMySQL(connStr));
             services.AddDbContext<ConsolePhotostockContext>(opt => opt.UseMySQL(connStr));
+
+            //services.AddDbContext<UserContext>(opt => opt.UseMySQL(connStr));
+            //services.AddDbContext<RoleContext>(opt => opt.UseMySQL(connStr));
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -41,22 +48,22 @@ namespace aspReactTest
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
+                    // укзывает, будет ли валидироваться издатель при валидации токена
+                    ValidateIssuer = true,
+                    // строка, представляющая издателя
+                    ValidIssuer = AuthOptions.ISSUER,
 
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
+                    // будет ли валидироваться потребитель токена
+                    ValidateAudience = true,
+                    // установка потребителя токена
+                    ValidAudience = AuthOptions.AUDIENCE,
+                    // будет ли валидироваться время существования
+                    ValidateLifetime = true,
 
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = true,
+                    // установка ключа безопасности
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    // валидация ключа безопасности
+                    ValidateIssuerSigningKey = true,
                 };
             });
 

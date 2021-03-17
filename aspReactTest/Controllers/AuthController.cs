@@ -8,6 +8,9 @@ using System.Security.Claims;
 using aspReactTest.Models;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using vkaudioposter_ef.Context;
+using vkaudioposter_ef.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace aspReactTest.Controllers
 {
@@ -18,10 +21,13 @@ namespace aspReactTest.Controllers
         // test data insted DB
         private List<Person> people = new List<Person>
         {
-            new Person { Username="admin@gmail.com", Password="12345", Role = "admin" },
+            new Person { Username="admin@gmail.com", Password="12345", Role = "ADMIN" },
             new Person { Username="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
+        //private readonly UserContext user_context = new UserContext(options);
+
+        //private readonly RoleContext role_context = new RoleContext();
 
         //[HttpPost("/signup")]
         [HttpPost("/api/auth/signup")]
@@ -79,16 +85,18 @@ namespace aspReactTest.Controllers
 
             //Get user roles from DB
 
-            List<string> authorities = new();
-            authorities.Add("ROLE_ADMIN");
-            authorities.Add("ROLE_MODERATOR");
+            //List<string> authorities = new();
+            //authorities.Add("ROLE_ADMIN");
+            //authorities.Add("ROLE_MODERATOR");
+            var rct = identity.RoleClaimType;
+
             var response = new
             {
                 id = 1,
                 accessToken = encodedJwt,
                 username = identity.Name,
                 email = person.Email,
-                roles = "[ROLE_ADMIN, ROLE_MODERATOR]"
+                //roles = "[ROLE_ADMIN, ROLE_MODERATOR]"
             };
 
             return Json(response);
@@ -96,7 +104,24 @@ namespace aspReactTest.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
+            //User personDB = user_context.Users.FirstOrDefault(x => x.Username == username && x.Password == password);
+            //var pRoles = personDB.Roles;
+            //var pPass = personDB.Password;
+            //var pName = personDB.Username;
+            //var pEmail = personDB.Email;
+            //string rolesString = null;
+
+            //foreach (var role in pRoles)
+            //{
+            //    if (role.Name == "ADMIN") rolesString = "ROLE_" + role.Name;
+            //    else if (role.Name == "MODERATOR") rolesString = "ROLE_" + role.Name;
+            //    else if (role.Name == "USER") rolesString = "ROLE_" + role.Name;
+            //}
+                //rolesString += role;
+
             Person person = people.FirstOrDefault(x => x.Username == username && x.Password == password);
+            //Person person = new Person { Username = pName, Role = pRoles };
+
             if (person != null)
             {
                 var claims = new List<Claim>
@@ -135,21 +160,7 @@ namespace aspReactTest.Controllers
         {
             return Json("Admin Content.");
         }
-        //        exports.allAccess = (req, res) => {
-        //  res.status(200).send("Public Content.");
-        //    };
 
-        //    exports.userBoard = (req, res) => {
-        //  res.status(200).send("User Content.");
-        //};
-
-        //exports.adminBoard = (req, res) => {
-        //    res.status(200).send("Admin Content.");
-        //};
-
-        //exports.moderatorBoard = (req, res) => {
-        //    res.status(200).send("Moderator Content.");
-        //};
         public IActionResult All()
         {
             ///IN:
