@@ -21,12 +21,11 @@ namespace aspReactTest.Controllers
         // test data insted DB
         private List<Person> people = new List<Person>
         {
-            new Person { Username="admin@gmail.com", Password="12345", Role = "ADMIN" },
+            new Person { Username="admin@gmail.com", Password="12345", Role = "ADMIN", Email = "admin@gmail.com"  },
             new Person { Username="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
         //private readonly UserContext user_context = new UserContext(options);
-
         //private readonly RoleContext role_context = new RoleContext();
 
         //[HttpPost("/signup")]
@@ -36,21 +35,21 @@ namespace aspReactTest.Controllers
             string username = person.Username, password = person.Password, email = person.Email;
             // generate a 128-bit salt using a secure PRNG
             byte[] salt = new byte[128 / 8];
-			using (var rng = RandomNumberGenerator.Create())
-			{
-				rng.GetBytes(salt);
-			}
-			Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
-	 
-			// derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
-			string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-				password: password,
-				salt: salt,
-				prf: KeyDerivationPrf.HMACSHA1,
-				iterationCount: 10000,
-				numBytesRequested: 256 / 8));
-				
-			// store username, email, hashed in DB
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
+
+            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+
+            // store username, email, hashed in DB
 
             var response = new
             {
@@ -90,12 +89,27 @@ namespace aspReactTest.Controllers
             //authorities.Add("ROLE_MODERATOR");
             var rct = identity.RoleClaimType;
 
+            Person person1 = people.FirstOrDefault(x => x.Username == username && x.Password == password);
+            //Person person = new Person { Username = pName, Role = pRoles };
+            string email = null, role = null;
+
+            if (person1 != null)
+            {
+                email = person1.Email;
+                //person1.Username;
+                role = person1.Role;
+                //roles = person1.Roles;
+            }
+
+
+
             var response = new
             {
-                id = 1,
+                id = 1, //pass from DB
                 accessToken = encodedJwt,
                 username = identity.Name,
-                email = person.Email,
+                email = email,
+                roles = "[ROLE_"+ role +"]"
                 //roles = "[ROLE_ADMIN, ROLE_MODERATOR]"
             };
 
@@ -117,7 +131,7 @@ namespace aspReactTest.Controllers
             //    else if (role.Name == "MODERATOR") rolesString = "ROLE_" + role.Name;
             //    else if (role.Name == "USER") rolesString = "ROLE_" + role.Name;
             //}
-                //rolesString += role;
+            //rolesString += role;
 
             Person person = people.FirstOrDefault(x => x.Username == username && x.Password == password);
             //Person person = new Person { Username = pName, Role = pRoles };
@@ -143,44 +157,23 @@ namespace aspReactTest.Controllers
         [HttpGet("/api/test/all")]
         public IActionResult GetAllContent()
         {
-            return Json("Public Content.");
+            return Json("Welcome to HVM!");
         }
         [HttpGet("/api/test/user")]
         public IActionResult GetUserContent()
         {
-            return Json("User Content.");
+            return Json("User Content.\nThere you can overview photostocks");
         }
         [HttpGet("/api/test/mod")]
         public IActionResult GetModContent()
         {
-            return Json("Moderator Content.");
+            return Json("Moderator Content.\nThere you can edit playlists");
         }
         [HttpGet("/api/test/admin")]
         public IActionResult GetAdminContent()
         {
-            return Json("Admin Content.");
+            return Json("Admin Content.\nThere you can start parsing and add new playlists");
         }
 
-        public IActionResult All()
-        {
-            ///IN:
-            //headers =     const user = JSON.parse(localStorage.getItem('user'));
-
-            //if (user && user.accessToken)
-            //{
-            //    return { Authorization: 'Bearer ' + user.accessToken };
-            //}
-            //else
-            //{
-            //    return { };
-            //}
-
-
-            ////var response = new
-            //{
-            //};
-            //IEnumerable<string> headerValues = request.Headers.
-            return Json("All Content");
-        }
     }
 }

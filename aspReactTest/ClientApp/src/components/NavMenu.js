@@ -52,49 +52,49 @@ export class NavMenu extends Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">aspReactTest</NavbarBrand>
+            <NavbarBrand tag={Link} to="/">HVM Control Panel</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
-                <NavItem>
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
+                </NavItem> */}
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
+                </NavItem> */}
                 {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                 </NavItem> */}
-                <NavItem>
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/playlistsold">Playlists Old</NavLink>
-                </NavItem>
-                <NavItem>
+                </NavItem> */}
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/photostocks">Photo Stocks</NavLink>
-                </NavItem>
-                <NavItem>
+                </NavItem> */}
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/playlists">Playlists</NavLink>
-                </NavItem>
-                <NavItem>
+                </NavItem> */}
+                {/* <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/add">Add</NavLink>
-                </NavItem>
+                </NavItem> */}
 
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/home">Home2</NavLink>
-                </NavItem>
+                {/* <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/home">Public Home</NavLink>
+                </NavItem> */}
 
                 {showModeratorBoard && (
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/mod">Moderator Board</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/mod">Moderator Board (Playlists)</NavLink>
                   </NavItem>
                 )}
                 {showAdminBoard && (
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/admin">Admin Board</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/admin">Admin Board (Add)</NavLink>
                   </NavItem>
                 )}
                 {currentUser && (
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/user">User</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/user">User (Photostocks)</NavLink>
                   </NavItem>
                 )}
                 {currentUser ? (

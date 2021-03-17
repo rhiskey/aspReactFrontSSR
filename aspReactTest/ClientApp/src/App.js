@@ -8,7 +8,7 @@ import { Home } from './components/Home';
 // import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { Playlists } from './components/Playlists';
-import { ConsolePhotostocks } from './components/ConsolePhotostocks';
+import ConsolePhotostocks from './components/ConsolePhotostocks';
 import AddPlaylist from "./components/Playlists/AddPlaylist";
 import Playlist from "./components/Playlists/Playlist";
 import PlaylistsList from "./components/Playlists/PlaylistsList";
@@ -33,7 +33,7 @@ class App extends Component {
     return (
       <Layout>
             <Switch>
-              <Route exact path='/' component={Home} />
+              {/* <Route exact path='/' component={Home} /> */}
               <Route path='/counter' component={Counter} />
               {/* <Route path='/fetch-data' component={FetchData} /> */}
               <Route path='/playlistsold' component={Playlists} />
@@ -44,7 +44,7 @@ class App extends Component {
               <Route exact path="/add" component={AddPlaylist} />
               <Route path="/playlists/:id" component={Playlist} />
 
-              <Route exact path={["/home"]} component={Home2} />
+              <Route exact path={["/","/home"]} component={Home2} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class ConsolePhotostocks extends Component {
+export default class ConsolePhotostocks extends Component {
     static displayName = ConsolePhotostocks.name;
 
     constructor(props) {

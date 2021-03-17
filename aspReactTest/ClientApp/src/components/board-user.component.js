@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
+import ConsolePhotostocks from "./ConsolePhotostocks";
 
 export default class BoardUser extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class BoardUser extends Component {
       <div className="container">
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
+          <ConsolePhotostocks/>
         </header>
       </div>
     );
