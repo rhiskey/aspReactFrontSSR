@@ -32,7 +32,7 @@ const AddPlaylist = () => {
                     // mood: response.data.mood
                 });
                 setSubmitted(true);
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(e => {
                 console.log(e);

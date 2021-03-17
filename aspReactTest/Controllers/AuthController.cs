@@ -77,10 +77,18 @@ namespace aspReactTest.Controllers
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            //Get user roles from DB
+
+            List<string> authorities = new();
+            authorities.Add("ROLE_ADMIN");
+            authorities.Add("ROLE_MODERATOR");
             var response = new
             {
+                id = 1,
                 accessToken = encodedJwt,
-                username = identity.Name
+                username = identity.Name,
+                email = person.Email,
+                roles = "[ROLE_ADMIN, ROLE_MODERATOR]"
             };
 
             return Json(response);
@@ -108,9 +116,40 @@ namespace aspReactTest.Controllers
 
 
         [HttpGet("/api/test/all")]
+        public IActionResult GetAllContent()
+        {
+            return Json("Public Content.");
+        }
         [HttpGet("/api/test/user")]
+        public IActionResult GetUserContent()
+        {
+            return Json("User Content.");
+        }
         [HttpGet("/api/test/mod")]
+        public IActionResult GetModContent()
+        {
+            return Json("Moderator Content.");
+        }
         [HttpGet("/api/test/admin")]
+        public IActionResult GetAdminContent()
+        {
+            return Json("Admin Content.");
+        }
+        //        exports.allAccess = (req, res) => {
+        //  res.status(200).send("Public Content.");
+        //    };
+
+        //    exports.userBoard = (req, res) => {
+        //  res.status(200).send("User Content.");
+        //};
+
+        //exports.adminBoard = (req, res) => {
+        //    res.status(200).send("Admin Content.");
+        //};
+
+        //exports.moderatorBoard = (req, res) => {
+        //    res.status(200).send("Moderator Content.");
+        //};
         public IActionResult All()
         {
             ///IN:

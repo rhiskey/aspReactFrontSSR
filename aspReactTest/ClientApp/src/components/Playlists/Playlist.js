@@ -17,7 +17,7 @@ const Playlist = props => {
         PlaylistDataService.get(id)
             .then(response => {
                 setCurrentPlaylist(response.data);
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
@@ -55,7 +55,7 @@ const Playlist = props => {
     const updatePlaylist = () => {
         PlaylistDataService.update(currentPlaylist.id, currentPlaylist)
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 setMessage("The playlist was updated successfully!");
             })
             .catch(e => {
@@ -66,7 +66,7 @@ const Playlist = props => {
     const deletePlaylist = () => {
         PlaylistDataService.remove(currentPlaylist.id)
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 props.history.push("/playlists");
             })
             .catch(e => {

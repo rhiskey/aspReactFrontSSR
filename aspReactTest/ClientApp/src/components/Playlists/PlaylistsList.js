@@ -22,7 +22,7 @@ const PlaylistsList = () => {
         PlaylistDataService.getAll()
             .then(response => {
                 setPlaylists(response.data);
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
@@ -43,7 +43,7 @@ const PlaylistsList = () => {
     const removeAllPlaylists = () => {
         PlaylistDataService.removeAll()
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 refreshList();
             })
             .catch(e => {
@@ -55,7 +55,7 @@ const PlaylistsList = () => {
         PlaylistDataService.findByName(searchName)
             .then(response => {
                 setPlaylists(response.data);
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(e => {
                 console.log(e);

@@ -35,8 +35,8 @@ export class NavMenu extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showModeratorBoard: true, /*user.roles.includes("ROLE_MODERATOR"),*/
+        showAdminBoard: true /*user.roles.includes("ROLE_ADMIN"),*/
       });
     }
   }
