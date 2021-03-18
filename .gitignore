@@ -234,3 +234,4 @@ _Pvt_Extensions
 # env
 .env
 *.env
+/aspReactTest/env.list
