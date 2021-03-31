@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Text } from "react";
 import PlaylistDataService from "../../services/PlaylistsDataService";
 import { Link } from "react-router-dom";
 // import Pagination from "@material-ui/lab/Pagination"; //TODO
@@ -61,7 +61,7 @@ const PlaylistsList = () => {
                 console.log(e);
             });
     };
-
+    const tStyleDisabled = { color: 'red' };
     return (
         <div className="list row">
             <div className="col-md-8">
@@ -97,7 +97,8 @@ const PlaylistsList = () => {
                                 onClick={() => setActivePlaylist(playlist, index)}
                                 key={index}
                             >
-                                {playlist.playlistName}
+                                {playlist.status? <text>{playlist.playlistName}</text>:<text style={ tStyleDisabled }>{playlist.playlistName} </text> }
+                                {/* <td>{playlist.status? "Enabled" : "Disabled"}</td> */}
                             </li>
                         ))}
                 </ul>
@@ -133,12 +134,18 @@ const PlaylistsList = () => {
                             {/* {currentPlaylist.published ? "Published" : "Pending"} */}
                         </div>
 
+                        <div>
+                            <label>
+                                <strong>Status:</strong>
+                            </label>{" "}
+                            {currentPlaylist.status? "Enabled" : "Disabled"}
+                        </div>
                         <Link
                             to={"/playlists/" + currentPlaylist.id}
                             className="btn btn btn-warning"
                         >
                             Edit
-            </Link>
+                        </Link>
                     </div>
                 ) : (
                     <div>

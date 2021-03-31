@@ -7,10 +7,13 @@ const AddPlaylist = () => {
         playlistId: "",
         playlistName: "",
         mood: 0,
+        status: 1,
+        updateDate: new Date(),
         published: false
     };
     const [playlist, setPlaylist] = useState(initialPlaylistState);
     const [submitted, setSubmitted] = useState(false);
+    const [checked, setChecked] = React.useState(true);
 
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -18,9 +21,20 @@ const AddPlaylist = () => {
     };
 
     const savePlaylist = () => {
+        let st = 0;
+        if (checked===true){
+            st=1;
+        }
+
+        let hrs = -(new Date().getTimezoneOffset() / 60) 
+        var dt = new Date();
+        dt.setHours( dt.getHours() + hrs );
+
         var data = {
             playlistId: playlist.playlistId,
-            playlistName: playlist.playlistName
+            playlistName: playlist.playlistName,
+            status: st,
+            updateDate: dt
         };
 
         PlaylistDataService.create(data)
@@ -29,6 +43,8 @@ const AddPlaylist = () => {
                     // id: response.data.id,
                     playlistId: response.data.playlistId,
                     playlistName: response.data.playlistName,
+                    status: response.status,
+                    updateDate: response.updateDate
                     // mood: response.data.mood
                 });
                 setSubmitted(true);
@@ -80,7 +96,19 @@ const AddPlaylist = () => {
                             name="playlistName"
                         />
                     </div>
-
+                    <div className="form-group">
+                        <label htmlFor="status">Status</label>
+                        <input
+                            type="checkbox"
+                            className="form-control"
+                            id="status"
+                            defaultChecked={checked}
+                            onChange={() => setChecked(!checked)}
+                            // value={playlist.status}
+                            // onChange={handleInputChange}
+                            name="status"
+                        />
+                    </div>
                     <button onClick={savePlaylist} className="btn btn-success">
                         Submit
             </button>

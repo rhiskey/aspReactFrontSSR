@@ -25,7 +25,7 @@ namespace aspReactTest.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetPlaylists()
         {
-            return await _context.Playlists.ToListAsync();
+            return await _context.Playlists.OrderBy(p => p.Status).ThenBy(p=>p.PlaylistName).ToListAsync();
         }
 
         // GET: api/Playlists/5

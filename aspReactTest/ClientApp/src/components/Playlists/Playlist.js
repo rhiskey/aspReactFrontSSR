@@ -7,17 +7,21 @@ const Playlist = props => {
         id: null,
         playlistId: "",
         playlistName: "",
+        status: 0,
         mood: 0,
+        updateDate: new Date(),
         published: false
     };
     const [currentPlaylist, setCurrentPlaylist] = useState(initialPlaylistState);
     const [message, setMessage] = useState("");
+    const [checked, setChecked] = useState();
 
     const getPlaylist = id => {
         PlaylistDataService.get(id)
             .then(response => {
                 setCurrentPlaylist(response.data);
-                //console.log(response.data);
+                if (response.data.status !== 0) setChecked(true); 
+                else setChecked(false);              
             })
             .catch(e => {
                 console.log(e);
@@ -53,7 +57,26 @@ const Playlist = props => {
     // };
 
     const updatePlaylist = () => {
-        PlaylistDataService.update(currentPlaylist.id, currentPlaylist)
+        let st = 0;
+        if (checked === true) {
+            st = 1;
+        }
+        // var d = new Date(); 
+        // d.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
+
+        let hrs = -(new Date().getTimezoneOffset() / 60) 
+        var dt = new Date();
+        dt.setHours( dt.getHours() + hrs );
+        
+        var data = {
+            id: currentPlaylist.id,
+            playlistId: currentPlaylist.playlistId,
+            playlistName: currentPlaylist.playlistName,
+            status: st,
+            mood: currentPlaylist.mood,
+            updateDate: dt
+        };
+        PlaylistDataService.update(currentPlaylist.id, data)
             .then(response => {
                 //console.log(response.data);
                 setMessage("The playlist was updated successfully!");
@@ -114,6 +137,17 @@ const Playlist = props => {
                             />
                         </div>
 
+                        <div className="form-group">
+                            <label htmlFor="status">Status</label>
+                            <input
+                                type="checkbox"
+                                className="form-control"
+                                id="status"
+                                defaultChecked={checked}
+                                onChange={() => setChecked(!checked)}
+                                name="status"
+                            />
+                        </div>
                         {/* <div className="form-group">
                             <label>
                                 <strong>Status:</strong>

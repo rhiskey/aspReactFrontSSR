@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import XpathDataService from "../services/XpathDataService";
 
 export default class ConsolePhotostocks extends Component {
     static displayName = ConsolePhotostocks.name;
@@ -18,14 +19,14 @@ export default class ConsolePhotostocks extends Component {
                 <thead>
                     <tr>
                         <th>URL</th>
-
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {stocks.map(stock =>
                         <tr key={stock.id}>
                             <td>{stock.url}</td>
-
+                            <td>{stock.status}</td>
                         </tr>
                     )}
                 </tbody>

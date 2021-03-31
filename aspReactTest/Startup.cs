@@ -38,6 +38,7 @@ namespace aspReactTest
             services.AddDbContext<PlaylistContext>(opt => opt.UseMySQL(connStr));
             services.AddDbContext<ConsolePhotostockContext>(opt => opt.UseMySQL(connStr));
             services.AddDbContext<PostedTracksContext>(opt => opt.UseMySQL(connStr));
+            services.AddDbContext<ParserXpathContext>(opt => opt.UseMySQL(connStr));
             //services.AddDbContext<UserContext>(opt => opt.UseMySQL(connStr));
             //services.AddDbContext<RoleContext>(opt => opt.UseMySQL(connStr));
 
