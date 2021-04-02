@@ -17,7 +17,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "jsWebView2Debugging": false
     },
     "aspReactTest": {
       "commandName": "Project",

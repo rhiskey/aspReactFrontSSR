@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
-import AddPlaylist from "../components/Playlists/AddPlaylist";
+import PlaylistsList from "../components/Playlists/PlaylistsList";
 
 export default class BoardAdmin extends Component {
   constructor(props) {
@@ -51,8 +51,8 @@ export default class BoardAdmin extends Component {
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
-        <AddPlaylist/>
-
+        
+        <PlaylistsList/>
         
         <input className="btn btn-primary" type="button" value="Start Parser" onClick={this._onPressStartButton}></input>
       </div>

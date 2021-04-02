@@ -21,8 +21,9 @@ namespace aspReactTest.Controllers
         // test data insted DB
         private List<Person> people = new List<Person>
         {
-            new Person { Username="admin@gmail.com", Password="12345", Role = "ADMIN", Email = "admin@gmail.com"  },
-            new Person { Username="qwerty@gmail.com", Password="55555", Role = "user" }
+            new Person { Username="admin", Password="013d897f5c", Role = "ADMIN", Email = "admin"  },
+            //new Person { Username=Startup.adminUser, Password=Startup.adminPass, Role = "ADMIN", Email = Startup.adminUser  },
+            //new Person { Username="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
         //private readonly UserContext user_context = new UserContext(options);
@@ -167,12 +168,12 @@ namespace aspReactTest.Controllers
         [HttpGet("/api/test/mod")]
         public IActionResult GetModContent()
         {
-            return Json("Moderator Content.\nThere you can edit playlists");
+            return Json("Moderator Content.\nThere you can add playlists");
         }
         [HttpGet("/api/test/admin")]
         public IActionResult GetAdminContent()
         {
-            return Json("Admin Content.\nThere you can start parsing and add new playlists");
+            return Json("Admin Content.\nThere you can start parsing and edit playlists");
         }
 
     }

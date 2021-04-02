@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
-import PlaylistsList from "../components/Playlists/PlaylistsList";
+import AddPlaylist from "../components/Playlists/AddPlaylist";
 
 export default class BoardModerator extends Component {
   constructor(props) {
@@ -38,7 +38,8 @@ export default class BoardModerator extends Component {
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
-        <PlaylistsList/>
+        {/* <PlaylistsList/> */}
+        <AddPlaylist/>
       </div>
     );
   }

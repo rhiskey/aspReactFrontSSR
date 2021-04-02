@@ -15,7 +15,7 @@ namespace aspReactTest
 {
     public class Startup
     {
-        public static string db_server, db_user, db_password, db_name, connStr;
+        public static string db_server, db_user, db_password, db_name, connStr, adminUser, adminPass;
 
         public Startup(IConfiguration configuration)
         {
@@ -32,6 +32,8 @@ namespace aspReactTest
             db_user = DotNetEnv.Env.GetString("MYSQL_USER");
             db_password = DotNetEnv.Env.GetString("MYSQL_PASSWORD");
             db_name = DotNetEnv.Env.GetString("MYSQL_DATABASE_NAME");
+            adminUser = DotNetEnv.Env.GetString("SITE_ADMIN");
+            adminPass = DotNetEnv.Env.GetString("SITE_ADMIN_PASS");
 
             connStr = "server=" + db_server + ";user=" + db_user + ";database=" + db_name + ";port=3306;password=" + db_password + "";
 

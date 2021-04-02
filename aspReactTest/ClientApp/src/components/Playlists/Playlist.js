@@ -20,7 +20,9 @@ const Playlist = props => {
         PlaylistDataService.get(id)
             .then(response => {
                 setCurrentPlaylist(response.data);
-                if (response.data.status !== 0) setChecked(true); 
+                if (response.data.status !== 0) {
+                    setChecked(true);
+                } 
                 else setChecked(false);              
             })
             .catch(e => {
@@ -56,11 +58,22 @@ const Playlist = props => {
     //         });
     // };
 
+    const handleCheckboxChange = event  => {
+        console.log("🚀 ~ file: Playlist.js ~ line 62 ~ event", event)
+        setChecked(!checked);
+        //if(checked) setChecked(!checked);
+        //else setChecked(checked);
+        //const { name, value } = event.target;
+        //console.log("🚀 ~ file: Playlist.js ~ line 64 ~ value", value)
+        //setCurrentPlaylist({ ...currentPlaylist, [name]: value });
+    };
+
     const updatePlaylist = () => {
         let st = 0;
         if (checked === true) {
             st = 1;
-        }
+        } else st = 0 ;
+        console.log("🚀 ~ file: Playlist.js ~ line 62 ~ updatePlaylist ~ checked", checked)
         // var d = new Date(); 
         // d.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
 
@@ -144,7 +157,7 @@ const Playlist = props => {
                                 className="form-control"
                                 id="status"
                                 defaultChecked={checked}
-                                onChange={() => setChecked(!checked)}
+                                onChange={(event) => handleCheckboxChange(event)}
                                 name="status"
                             />
                         </div>

@@ -84,12 +84,12 @@ export class NavMenu extends Component {
 
                 {showModeratorBoard && (
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/mod">Moderator Board (Playlists)</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/mod">Moderator Board (Add Playlists)</NavLink>
                   </NavItem>
                 )}
                 {showAdminBoard && (
                   <NavItem>
-                    <NavLink tag={Link} className="text-dark" to="/admin">Admin Board (Add)</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/admin">Admin Board (Edit Playlists)</NavLink>
                   </NavItem>
                 )}
                 {currentUser && (
